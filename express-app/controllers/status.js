@@ -54,6 +54,22 @@ const getSlotColor = async (req, res) => {
   }
 };
 
-const getRegSlot = async (req, res) => {};
+const getRegSlot = async (req, res) => {
+  const regno = req.query.regno;
+  const result = await Parking.find({ carRegNo: regno }).then((resp) => {
+    if (resp.length >= 1) {
+      return resp.map((a) => a.slotNo);
+    } else {
+      return -1;
+    }
+  });
+  if (result !== -1) {
+    res.send(result);
+  } else {
+    res.send(
+      `Sorry, Cars with Registration Number ${regno} not in parking list`
+    );
+  }
+};
 
 module.exports = { getRegColor, getRegSlot, getSlotColor };
