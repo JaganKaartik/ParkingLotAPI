@@ -16,7 +16,44 @@ const getRegColor = async (req, res) => {
     res.send(`Sorry, Cars with color ${color} not in parking list`);
   }
 };
+
+const getSlotColor = async (req, res) => {
+  const color = req.query.color;
+
+  // Fetch Array of Registration Numbers with queried color
+  const result = await Car.find({ carColor: color }).then((resp) => {
+    if (resp.length >= 1) {
+      return resp.map((a) => a.carRegNo);
+    } else {
+      return -1;
+    }
+  });
+
+  // If Result Array exists
+  if (result !== -1) {
+    const data = await Parking.find({ carRegNo: { $in: result } }).then(
+      (resp) => {
+        if (resp.length >= 1) {
+          return resp.map((a) => a.slotNo);
+        } else {
+          return -1;
+        }
+      }
+    );
+
+    // If Slot Number data exists
+    if (data !== -1) {
+      res.send(data);
+    } else {
+      // If Slot Numbers doesn't exist
+      res.send(`Sorry, Cars with color ${color} not in parking list`);
+    }
+  } else {
+    // If Result Array doesn't exist
+    res.send(`Sorry, Cars with color ${color} not in parking list`);
+  }
+};
+
 const getRegSlot = async (req, res) => {};
-const getSlotColor = async (req, res) => {};
 
 module.exports = { getRegColor, getRegSlot, getSlotColor };
