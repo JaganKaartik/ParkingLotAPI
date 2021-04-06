@@ -1,3 +1,1 @@
-module.exports = {
-  slots: 0,
-};
+module.exports = [];
