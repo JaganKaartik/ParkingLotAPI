@@ -1,7 +1,8 @@
 const express = require('express');
 const Middleware = express();
-const routes = require('../routes');
+const { apiRoutes, statusRoutes } = require('../routes');
 
-Middleware.use('/', routes);
+Middleware.use('/', apiRoutes);
+Middleware.use('/status', statusRoutes);
 
 module.exports = { Middleware };
