@@ -1,4 +1,4 @@
 const apiRoutes = require('./api');
-const statusRoutes = require('./status');
+const searchRoutes = require('./search');
 
-module.exports = { apiRoutes, statusRoutes };
+module.exports = { apiRoutes, searchRoutes };

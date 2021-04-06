@@ -72,4 +72,6 @@ const getRegSlot = async (req, res) => {
   }
 };
 
-module.exports = { getRegColor, getRegSlot, getSlotColor };
+const getParkingStatus = async (req, res) => {};
+
+module.exports = { getRegColor, getRegSlot, getSlotColor, getParkingStatus };
