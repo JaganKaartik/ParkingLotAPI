@@ -5,13 +5,17 @@ let Slots = require('../models/slot');
 const createParkingSlot = (req, res) => {
   const noOfSlots = req.query.number;
   for (let i = 0; i < noOfSlots; ++i) Slots[i] = 1;
-  res.send(`Created a parking lot with ${noOfSlots} slots`);
+  res.status(200).send({
+    message: `Created a parking lot with ${noOfSlots} slots`,
+  });
 };
 
 const parkCar = async (req, res) => {
   const slotExists = Slots.indexOf(1);
   if (slotExists == -1) {
-    res.send(`Sorry, parking lot is full `);
+    res.status(404).send({
+      message: `Sorry, parking lot is full `,
+    });
   } else {
     const carnumber = req.query.carnumber;
     const color = req.query.color;
@@ -32,9 +36,13 @@ const parkCar = async (req, res) => {
         slotNo: avbl_slot + 1,
       });
       console.log(`Status of Slots : ${Slots}`);
-      res.send(`Allocated Slot no ${avbl_slot + 1}`);
+      res.status(200).send({
+        message: `Allocated Slot no ${avbl_slot + 1}`,
+      });
     } else {
-      res.send(`Error! Car already parked`);
+      res.status(404).send({
+        message: `Error! Car already parked`,
+      });
     }
   }
 };
@@ -45,7 +53,9 @@ const exitCarPark = async (req, res) => {
     if (resp.length != 0) {
       return resp[0].carRegNo;
     } else {
-      res.send('Slot Incorrect');
+      res.status(404).send({
+        message: 'Slot Incorrect',
+      });
     }
   });
   console.log(carReg);
@@ -53,7 +63,9 @@ const exitCarPark = async (req, res) => {
   await Car.deleteOne({ carRegNo: carReg });
   Slots[exitSlot - 1] = 1;
   console.log(`Status of Slots : ${Slots}`);
-  res.send(`Slot number ${exitSlot} is free.`);
+  res.status(200).send({
+    message: `Slot number ${exitSlot} is free.`,
+  });
 };
 
 module.exports = { createParkingSlot, parkCar, exitCarPark };
