@@ -1,6 +1,5 @@
 const Car = require('../models/car');
 const Parking = require('../models/parking');
-const slot = require('../models/slot');
 let Slots = require('../models/slot');
 
 const createParkingSlot = (req, res) => {
@@ -39,9 +38,4 @@ const parkCar = async (req, res) => {
   }
 };
 
-const status = async (req, res) => {
-  const parkingStatus = await Parking.find({});
-  res.send(parkingStatus);
-};
-
-module.exports = { createParkingSlot, parkCar, status };
+module.exports = { createParkingSlot, parkCar };
