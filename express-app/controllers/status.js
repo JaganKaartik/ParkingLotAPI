@@ -58,7 +58,7 @@ const getRegSlot = async (req, res) => {
   const regno = req.query.regno;
   const result = await Parking.find({ carRegNo: regno }).then((resp) => {
     if (resp.length >= 1) {
-      return resp.map((a) => a.slotNo);
+      return resp[0].slotNo;
     } else {
       return -1;
     }
