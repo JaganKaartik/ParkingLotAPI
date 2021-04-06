@@ -1,6 +1,7 @@
 const SlotObj = require('../models/slot');
 const Car = require('../models/car');
 const Parking = require('../models/parking');
+const { modelName } = require('../models/car');
 
 const createParkingSlot = (req, res) => {
   const noOfSlots = req.query.number;
@@ -13,3 +14,5 @@ const parkCar = async (req, res) => {
   const color = req.query.color;
   await Car.create({ carRegNo: carnumber, carColor: color });
 };
+
+module.exports = { createParkingSlot, parkCar };
