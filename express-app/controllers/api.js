@@ -53,7 +53,7 @@ const exitCarPark = async (req, res) => {
   await Car.deleteOne({ carRegNo: carReg });
   Slots[exitSlot - 1] = 1;
   console.log(`Status of Slots : ${Slots}`);
-  res.send(`Slot ${exitSlot} is free.`);
+  res.send(`Slot number ${exitSlot} is free.`);
 };
 
 module.exports = { createParkingSlot, parkCar, exitCarPark };
