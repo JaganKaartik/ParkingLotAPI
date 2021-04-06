@@ -72,6 +72,30 @@ const getRegSlot = async (req, res) => {
   }
 };
 
-const getParkingStatus = async (req, res) => {};
+const getParkingStatus = async (req, res) => {
+  const allCarsRegList = await Car.find().then((resp) => {
+    if (resp.length >= 1) {
+      return {
+        allRegNo: resp.map((a) => a.carRegNo),
+        allColorList: resp.map((a) => a.carColor),
+      };
+    }
+  });
+
+  const allSlots = await Parking.find({
+    carRegNo: { $in: allCarsRegList.allRegNo },
+  }).then((resp) => {
+    if (resp.length >= 1) {
+      return resp.map((a) => a.slotNo);
+    }
+  });
+
+  console.log('Slot No. Registration No. Colour');
+  for (i = 0; i < allSlots.length; ++i) {
+    console.log(
+      `${allSlots[i]} ${allCarsRegList.allRegNo[i]} ${allCarsRegList.allColorList[i]} `
+    );
+  }
+};
 
 module.exports = { getRegColor, getRegSlot, getSlotColor, getParkingStatus };
