@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const parkingSchema = new Schema({
+const parkingSlotSchema = new Schema({
   carRegNo: String,
-  carColor: String,
+  slotNo: String,
 });
 
-module.exports = mongoose.model('parking', parkingSchema);
+module.exports = mongoose.model('parking', parkingSlotSchema);
