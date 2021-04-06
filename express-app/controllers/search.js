@@ -98,38 +98,35 @@ const getParkingStatus = async (req, res) => {
     }
   });
 
-  console.log(allCarsInfo);
+  allRegNos = allCarsInfo.map((a) => a.carRegNo);
+
   //Fetch List of all Slot Numbers
   const allSlots = await Parking.find({
-    carRegNo: { $in: allCarsInfo.carRegNo },
+    carRegNo: { $in: allRegNos },
   }).then((resp) => {
     if (resp.length >= 1) {
       return resp.map((a) => a.slotNo);
     }
   });
 
-  console.log(allSlots);
-  //Adding All Car Slots Array to All Cars Info Object
-  allCarsInfo.allSlots = [...allSlots];
+  //Adding All Car Slots from Array to All Cars Info Object
+  allCarsInfo.forEach(
+    (elem) => (elem.slotNo = allSlots[allCarsInfo.indexOf(elem)])
+  );
 
-  console.log('Slot No. Registration No. Colour');
-  for (i = 0; i < allSlots.length; ++i) {
-    console.log(
-      `${allCarsInfo.allSlots[i]} ${allCarsInfo.allRegNo[i]} ${allCarsInfo.allColorList[i]} `
-    );
-  }
+  // console.log(allCarsInfo);
+  // console.log('Slot No. Registration No. Colour');
+  // for (i = 0; i < allSlots.length; ++i) {
+  //   console.log(
+  //     `${allCarsInfo.allSlots[i]} ${allCarsInfo.allRegNo[i]} ${allCarsInfo.allColorList[i]} `
+  //   );
+  // }
 
   res.send(
-    allCarsInfo
-      .map(
-        (a) =>
-          `<h1>Slot No. Registration No. Colour</h1>
-          <h1>${a.allSlots}</h1><br>
-      <h5>${a.allRegNo}</h5>
-      <h5>${a.allColorList}</h5>
-      `
-      )
-      .join('')
+    `<h3>Slot No. Registration No. Colour</h3>` +
+      allCarsInfo
+        .map((a) => `<h3>${a.slotNo} ${a.carRegNo} ${a.carColor}</h3>`)
+        .join('')
   );
 };
 
