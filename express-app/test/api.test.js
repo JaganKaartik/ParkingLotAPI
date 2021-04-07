@@ -104,7 +104,7 @@ describe('Init', function () {
     // it('It should leave Slot Number Empty', (done) => {
     //   chai
     //     .request(server)
-    //     .get('/leave?slot=4')
+    //     .get('/leave?slot=1')
     //     .end((err, response) => {
     //       console.log(response.text);
     //       const regex = new RegExp('Slot number [0-9]* is free.');
@@ -123,6 +123,73 @@ describe('Init', function () {
           const result = response.text === expectedResponse ? true : false;
           expect(result).to.be.true;
           response.should.have.status(404);
+          done();
+        });
+    });
+  });
+
+  // Test GET route /registration_numbers_for_cars_with_colour
+  describe('Test GET route /registration_numbers_for_cars_with_colour', () => {
+    //Create Parking Lot with no of slots.
+    it('Creating Parking Lot with 6 slots', (done) => {
+      chai.request(server).get('/create_parking_lot?number=6');
+      done();
+    });
+    // Park Car in Avbl slots
+    it('It should park car in the nearest avbl slot', (done) => {
+      for (i = 0; i < 6; ++i) {
+        let value = i;
+        chai
+          .request(server)
+          .get(`/park?carnumber=${carNumberArray[value]}&color=White`)
+          .end((err, response) => {
+            const regex = new RegExp('Allocated Slot number: [0-9]*');
+            const result = response.text.match(regex);
+            should.exist(result);
+            response.should.have.status(200);
+          });
+      }
+      done();
+    });
+
+    it('It should return registration numbers for cars with colour', (done) => {
+      chai
+        .request(server)
+        .get('/registration_numbers_for_cars_with_colour?color=White')
+        .end((err, response) => {
+          console.log(response.text);
+          // expect(response).to.be.an('array');
+          response.should.have.status(200);
+          done();
+        });
+    });
+  });
+
+  // Test slot numbers for cars with colour
+  describe('Test GET route /slot_numbers_for_cars_with_colour', () => {
+    it('It should return slot numbers for cars with colour', (done) => {
+      chai
+        .request(server)
+        .get('/slot_numbers_for_cars_with_colour?color=White')
+        .end((err, response) => {
+          console.log(response.text);
+          expect(response).to.be.an('array').that.is.not.empty;
+          response.should.have.status(200);
+          done();
+        });
+    });
+  });
+
+  // Test slot number for registration number
+  describe('Test GET route /slot_number_for_registration_number', () => {
+    it('It should return the slot number of given car registration no', (done) => {
+      chai
+        .request(server)
+        .get('/slot_number_for_registration_number?regno=KA01HH7777')
+        .end((err, response) => {
+          console.log(response.text);
+          // expect(response).to.equal(2);
+          response.should.have.status(200);
           done();
         });
     });
