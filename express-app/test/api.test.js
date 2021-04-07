@@ -19,12 +19,6 @@ const carNumberArray = [
 
 const carNoArray = ['MH01HH8888', 'MH01HH2771'];
 
-after(async (done) => {
-  await Car.remove({});
-  await Parking.remove({});
-  done();
-});
-
 describe('Test GET route /create_parking_lot', () => {
   it('It should create a parking lot with No of Slots (parameter) > 0', (done) => {
     chai
@@ -78,22 +72,11 @@ describe('Test GET route /park ', () => {
     done();
   });
 
-  // carNumberArray.forEach((value) => {
-  //   it('It should park car in the nearest avbl slot', (done) => {
-  //     console.log(`/park?carnumber=${value}&color=White`);
-  //     chai
-  //       .request(server)
-  //       .get(`/park?carnumber=${value}&color=White`)
-  //       .end((err, response) => {
-  //         const regex = new RegExp('Allocated Slot number: [0-9]*');
-  //         console.log(`${value} and ${response.text}`);
-  //         const result = response.text.match(regex);
-  //         should.exist(result);
-  //         response.should.have.status(200);
-  //       });
-  //     done();
-  //   });
-  // });
+  it('Clear DB', (done) => {
+    Car.remove({});
+    Parking.remove({});
+    done();
+  });
 });
 
 // it('It should not create a parking lot with No of Slots (parameter) = 0', (done) => {
@@ -107,4 +90,21 @@ describe('Test GET route /park ', () => {
 //       response.should.have.status(400);
 //       done();
 //     });
+// });
+
+// carNumberArray.forEach((value) => {
+//   it('It should park car in the nearest avbl slot', (done) => {
+//     console.log(`/park?carnumber=${value}&color=White`);
+//     chai
+//       .request(server)
+//       .get(`/park?carnumber=${value}&color=White`)
+//       .end((err, response) => {
+//         const regex = new RegExp('Allocated Slot number: [0-9]*');
+//         console.log(`${value} and ${response.text}`);
+//         const result = response.text.match(regex);
+//         should.exist(result);
+//         response.should.have.status(200);
+//       });
+//     done();
+//   });
 // });
