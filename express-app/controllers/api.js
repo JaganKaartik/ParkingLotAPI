@@ -48,13 +48,17 @@ const exitCarPark = async (req, res) => {
     if (resp.length != 0) {
       return resp[0].carRegNo;
     } else {
-      res.status(404).send('Slot Incorrect');
+      return -1;
     }
   });
-  await Parking.deleteOne({ slotNo: exitSlot });
-  await Car.deleteOne({ carRegNo: carReg });
-  Slots[exitSlot - 1] = 1;
-  res.status(200).send(`Slot number ${exitSlot} is free.`);
+  if (carReg === -1) {
+    res.status(404).send('Slot Incorrect');
+  } else {
+    await Parking.deleteOne({ slotNo: exitSlot });
+    await Car.deleteOne({ carRegNo: carReg });
+    Slots[exitSlot - 1] = 1;
+    res.status(200).send(`Slot number ${exitSlot} is free.`);
+  }
 };
 
 module.exports = { createParkingSlot, parkCar, exitCarPark };

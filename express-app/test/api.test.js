@@ -103,19 +103,18 @@ describe('Test GET route /park ', () => {
 
 describe('Test GET route /leave', () => {
   //Leave Slots
-  it('It should leave Slot Number Empty', (done) => {
-    chai
-      .request(server)
-      .get('/leave?slot=6')
-      .end((err, response) => {
-        // const regex = new RegExp('Slot number [0-9]* is free');
-        // const result = response.text.match(regex);
-        // should.exist(result);
-        console.log(response.text);
-        response.should.have.status(200);
-        done();
-      });
-  });
+  // it('It should leave Slot Number Empty', (done) => {
+  //   chai
+  //     .request(server)
+  //     .get('/leave?slot=4')
+  //     .end((err, response) => {
+  //       console.log(response.text);
+  //       const regex = new RegExp('Slot number [0-9]* is free.');
+  //       const result = response.text.match(regex);
+  //       response.should.have.status(200);
+  //       done();
+  //     });
+  // });
 
   it('It should not leave slot when incorrect slot no', (done) => {
     chai
