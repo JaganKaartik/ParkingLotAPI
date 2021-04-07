@@ -1,0 +1,27 @@
+version: 3
+services:
+  node-app:
+    build: .
+    ports:
+      - '7000:7000'
+    networks:
+      - parking-lot
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:3.6.19-xenial
+    ports:
+      - '27017:27017'
+    networks:
+      - parking-lot
+    volumes:
+      - mongo-data:/data/db
+
+networks:
+  parking-lot:
+    driver: bridge
+
+volumes:
+  mongo-data:
+    name: 'parking-lot-volume'
