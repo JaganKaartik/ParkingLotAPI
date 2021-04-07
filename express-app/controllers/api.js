@@ -4,8 +4,12 @@ let Slots = require('../models/slot');
 
 const createParkingSlot = (req, res) => {
   const noOfSlots = req.query.number;
-  for (let i = 0; i < noOfSlots; ++i) Slots[i] = 1;
-  res.status(200).send(`Created a parking lot with ${noOfSlots} slots`);
+  if (noOfSlots >= 1) {
+    for (let i = 0; i < noOfSlots; ++i) Slots[i] = 1;
+    res.status(200).send(`Created a parking lot with ${noOfSlots} slots`);
+  } else {
+    res.status(400).send('Error! Minimum 1 Parking Slot to be created');
+  }
 };
 
 const parkCar = async (req, res) => {
