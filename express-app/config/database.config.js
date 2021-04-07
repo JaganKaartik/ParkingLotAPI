@@ -1,6 +1,6 @@
 const { connect } = require('mongoose');
 
-const { MONGO_URL } = require('./default.config');
+const { MONGO_DB_URL } = require('./default.config');
 
 const connectDB = async () => {
   try {
@@ -9,7 +9,7 @@ const connectDB = async () => {
       useCreateIndex: true,
       useUnifiedTopology: true,
     };
-    await connect(MONGO_URL, options);
+    await connect(MONGO_DB_URL, options);
     console.log('MongoDB Successfully Connected');
   } catch (err) {
     console.log(err.message);

@@ -35,7 +35,6 @@ const parkCar = async (req, res) => {
         carRegNo: carnumber,
         slotNo: avbl_slot + 1,
       });
-      console.log(`Status of Slots : ${Slots}`);
       res.status(200).send(`Allocated Slot number: ${avbl_slot + 1}`);
     } else {
       res.status(404).send(`Error! Car already parked`);
@@ -52,11 +51,9 @@ const exitCarPark = async (req, res) => {
       res.status(404).send('Slot Incorrect');
     }
   });
-  console.log(carReg);
   await Parking.deleteOne({ slotNo: exitSlot });
   await Car.deleteOne({ carRegNo: carReg });
   Slots[exitSlot - 1] = 1;
-  console.log(`Status of Slots : ${Slots}`);
   res.status(200).send(`Slot number ${exitSlot} is free.`);
 };
 

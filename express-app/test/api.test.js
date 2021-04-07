@@ -7,6 +7,17 @@ let should = chai.should();
 let expect = chai.expect;
 chai.use(chaiHttp);
 
+const carNumberArray = [
+  'KA01HH1234',
+  'KA01HH9999',
+  'KA01BB0001',
+  'KA01HH7777',
+  'KA01HH2701',
+  'KA01HH3141',
+];
+
+const carNoArray = ['MH01HH8888', 'MH01HH2771'];
+
 describe('Test GET route /create_parking_lot', () => {
   it('It should create a parking lot with No of Slots (parameter) > 0', (done) => {
     chai
@@ -41,27 +52,37 @@ describe('Test GET route /park', () => {
     done();
   });
 
-  it('It should park car in the nearest avbl slot', (done) => {
-    const carNumberArray = [
-      'KA01HH1234',
-      'KA01HH9999',
-      'KA01BB0001',
-      'KA01HH7777',
-      'KA01HH2701',
-      'KA01HH3141',
-    ];
-    for (i = 0; i < 6; ++i) {
+  carNumberArray.forEach((value) => {
+    it('It should park car in the nearest avbl slot', (done) => {
+      console.log(`/park?carnumber=${value}&color=White`);
       chai
         .request(server)
-        .get(`/park?carnumber=${carNumberArray[i]}&color=White`)
+        .get(`/park?carnumber=${value}&color=White`)
         .end((err, response) => {
-          const regex = new RegExp('Allocated slot number: [0-9]* ');
+          const regex = new RegExp('Allocated Slot number: [0-9]*');
           const result = response.text.match(regex);
           should.exist(result);
           response.should.have.status(200);
         });
-    }
-    done();
+      done();
+    });
+  });
+
+  carNoArray.forEach((val) => {
+    it('It should not park car. Since Car parking is full', (done) => {
+      console.log(`/park?carnumber=${val}&color=Red`);
+      chai
+        .request(server)
+        .get(`/park?carnumber=${val}&color=Red`)
+        .end((err, response) => {
+          // const regex = new RegExp('Sorry, parking lot is full');
+          console.log(response.text);
+          // const result = response.text.match(regex);
+          // should.exist(result);
+          response.should.have.status(404);
+        });
+      done();
+    });
   });
 });
 
