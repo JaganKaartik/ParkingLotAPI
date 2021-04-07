@@ -158,7 +158,7 @@ describe('Init', function () {
         .get('/registration_numbers_for_cars_with_colour?color=White')
         .end((err, response) => {
           console.log(response.text);
-          // expect(response).to.be.an('array');
+          expect(response.text).to.be.an('array');
           response.should.have.status(200);
           done();
         });
@@ -172,8 +172,7 @@ describe('Init', function () {
         .request(server)
         .get('/slot_numbers_for_cars_with_colour?color=White')
         .end((err, response) => {
-          console.log(response.text);
-          expect(response).to.be.an('array').that.is.not.empty;
+          expect(response.text).to.be.an('array').that.is.not.empty;
           response.should.have.status(200);
           done();
         });
@@ -187,8 +186,7 @@ describe('Init', function () {
         .request(server)
         .get('/slot_number_for_registration_number?regno=KA01HH7777')
         .end((err, response) => {
-          console.log(response.text);
-          // expect(response).to.equal(2);
+          expect(response.text).to.equal(2);
           response.should.have.status(200);
           done();
         });
