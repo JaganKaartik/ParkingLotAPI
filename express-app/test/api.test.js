@@ -3,6 +3,7 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const Car = require('../models/car');
 const Parking = require('../models/parking');
+
 // Assertions
 let should = chai.should();
 let expect = chai.expect;
@@ -73,8 +74,13 @@ describe('Test GET route /park ', () => {
   });
 
   it('Clear DB', (done) => {
-    Car.remove({});
-    Parking.remove({});
+    Car.deleteMany({}, function (err) {
+      console.log('collection removed');
+    });
+    Parking.deleteMany({}, function (err) {
+      console.log('collection removed');
+    });
+
     done();
   });
 });
