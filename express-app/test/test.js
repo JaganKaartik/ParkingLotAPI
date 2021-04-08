@@ -20,6 +20,10 @@ beforeAll(async () => {
   });
 });
 
+afterAll(async () => {
+  mongoose.disconnect();
+});
+
 describe('Test GET route /create_parking_lot', () => {
   test('It should create a parking lot with No of Slots (parameter) > 0', async () => {
     const response = await request(server).get('/create_parking_lot?number=6');
