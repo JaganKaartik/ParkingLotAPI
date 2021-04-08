@@ -6,7 +6,8 @@
   "scripts": {
     "test": "NODE_ENV=test mocha",
     "start:dev": "nodemon server.js",
-    "start:test": "NODE_ENV=test nodemon server.js"
+    "start:test": "NODE_ENV=test nodemon server.js",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",

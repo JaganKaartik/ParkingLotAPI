@@ -1,4 +1,4 @@
-FROM node:alphine
+FROM node:alpine
 
 WORKDIR /app
 
@@ -8,5 +8,5 @@ RUN npm install
 
 EXPOSE 7000
 
-CMD [ "node", "server.js" ]
+CMD [ "npm", "start" ]
 

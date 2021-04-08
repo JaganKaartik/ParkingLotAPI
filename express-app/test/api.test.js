@@ -3,11 +3,9 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const Car = require('../models/car');
 const Parking = require('../models/parking');
-const { connectDB } = require('../config/database.config');
 const mongoose = require('mongoose');
 const { MONGO_DB_URL } = require('../config/default.config');
 
-// Assertions
 let should = chai.should();
 let expect = chai.expect;
 chai.use(chaiHttp);
@@ -24,7 +22,7 @@ const carNumberArray = [
 const carNoArray = ['MH01HH8888', 'MH01HH2771'];
 
 describe('Init', function () {
-  beforeEach(function (done) {
+  before(function (done) {
     mongoose.connect(MONGO_DB_URL, function () {
       mongoose.connection.db.dropDatabase(function () {
         done();
@@ -33,7 +31,7 @@ describe('Init', function () {
   });
 
   /*
- API Test
+API Test
  /create_parking_lot
 */
 
@@ -100,19 +98,52 @@ describe('Init', function () {
 */
 
   describe('Test GET route /leave', () => {
+    if (
+      ('init. clear tables',
+      (done) => {
+        Car.deleteMany({});
+        Parking.deleteMany({});
+        done();
+      })
+    )
+      it('Creating Parking Lot with 2 slots', (done) => {
+        chai.request(server).get('/create_parking_lot?number=2');
+        done();
+      });
+
+    // Park Car in Avbl slots
+    it('It should park car in the nearest avbl slot', (done) => {
+      const carNoArray = ['MH01HH8888', 'MH01HH2771'];
+      chai
+        .request(server)
+        .get(`/park?carnumber=${carNoArray[0]}&color=White`)
+        .end((err, response) => {
+          const regex = new RegExp('Allocated Slot number: [0-9]*');
+          const result = response.text.match(regex);
+          should.exist(result);
+          response.should.have.status(200);
+        });
+      done();
+    });
+
     //Leave Slots
-    // it('It should leave Slot Number Empty', (done) => {
-    //   chai
-    //     .request(server)
-    //     .get('/leave?slot=1')
-    //     .end((err, response) => {
-    //       console.log(response.text);
-    //       const regex = new RegExp('Slot number [0-9]* is free.');
-    //       const result = response.text.match(regex);
-    //       response.should.have.status(200);
-    //       done();
-    //     });
-    // });
+    it('It should leave Slot Number Empty', (done) => {
+      chai
+        .request(server)
+        .get('/status')
+        .end((err, response) => {
+          console.log(response.text);
+        });
+      chai
+        .request(server)
+        .get('/leave?slot=5')
+        .end((err, response) => {
+          const regex = new RegExp('Slot number [0-9]* is free.');
+          const result = response.text.match(regex);
+          // response.should.have.status(200);
+          done();
+        });
+    });
 
     it('It should not leave slot when incorrect slot no', (done) => {
       chai
