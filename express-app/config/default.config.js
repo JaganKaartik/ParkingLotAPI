@@ -1,4 +1,4 @@
-require('dotenv').config();
+process.env.NODE_ENV === 'docker' ? require('dotenv').config() : require('dotenv').config('.env.docker') 
 
 const { PORT_TEST, PORT_MAIN, MONGO_URL, MONGO_URL_TEST } = process.env;
 
