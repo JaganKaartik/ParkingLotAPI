@@ -1,4 +1,4 @@
-process.env.NODE_ENV === 'docker' ? require('dotenv').config() : require('dotenv').config('.env.docker') 
+require('dotenv').config();
 
 const { PORT_TEST, PORT_MAIN, MONGO_URL, MONGO_URL_TEST } = process.env;
 
@@ -6,5 +6,7 @@ const MONGO_DB_URL =
   process.env.NODE_ENV === 'test' ? MONGO_URL_TEST : MONGO_URL;
 
 const PORT = process.env.NODE_ENV === 'test' ? PORT_TEST : PORT_MAIN;
+
+console.log(process.env);
 
 module.exports = { PORT, MONGO_DB_URL };

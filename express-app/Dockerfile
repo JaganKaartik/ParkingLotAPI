@@ -8,5 +8,5 @@ RUN npm install
 
 EXPOSE 7000
 
-CMD [ "npm", "start:docker" ]
+RUN npm run start
 

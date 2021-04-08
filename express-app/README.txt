@@ -2,6 +2,7 @@ Mystifly Assignment - Jagan Kaartik
 
 Running app using Docker
 
+1. change `localhost` to `mongo` in enviornment variable
 1. Run ‘docker-compose up’
 2. Access API at port 7000.
 
