@@ -15,7 +15,7 @@ const getRegColor = async (req, res) => {
   if (result !== -1) {
     res.status(200).send(result);
   } else {
-    res.status(404).send(`Sorry, Cars with color ${color} not in parking list`);
+    res.status(404).send(`Not found`);
   }
 };
 
@@ -49,13 +49,11 @@ const getSlotColor = async (req, res) => {
       res.status(200).send(data);
     } else {
       // If Slot Numbers doesn't exist
-      res
-        .status(404)
-        .send(`Sorry, Cars with color ${color} not in parking list`);
+      res.status(404).send(`Not found`);
     }
   } else {
     // If Result Array doesn't exist
-    res.status(404).send(`Sorry, Cars with color ${color} not in parking list`);
+    res.status(404).send(`Not found`);
   }
 };
 
@@ -73,12 +71,10 @@ const getRegSlot = async (req, res) => {
 
   // If Result exists
   if (result !== -1) {
-    res.send(result);
+    res.status(200).end(result);
   } else {
     // If Result doesn't exist
-    res.send(
-      `Sorry, Cars with Registration Number ${regno} not in parking list`
-    );
+    res.status(404).send(`Not found`);
   }
 };
 
