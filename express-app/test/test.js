@@ -27,7 +27,7 @@ afterAll(async (done) => {
 });
 
 describe('Test GET route /create_parking_lot', () => {
-  test('It should create a parking lot with No of Slots (parameter) > 0', async () => {
+  test('It should create a parking lot with No of Slots (parameter) > 0 [Test Case = 6]', async () => {
     const response = await request(server).get('/create_parking_lot?number=6');
     const regex = new RegExp('Created a parking lot with [0-9]* slots');
     const result = response.text.match(regex);
@@ -56,6 +56,19 @@ describe('Test GET route /park ', () => {
       const result = response.text.match(regex);
       expect(result).toBeTruthy();
       expect(response.statusCode).toBe(200);
+    });
+  }
+
+  for (i = 0; i < 2; ++i) {
+    let value = i;
+    test('It should not park cars as parking lot is full!', async () => {
+      const response = await request(server).get(
+        `/park?carnumber=${carNoArray[value]}&color=White`
+      );
+      const expectedResponse = 'Sorry, parking lot is full';
+      const result = response.text === expectedResponse ? true : false;
+      expect(result).toBeTruthy();
+      expect(response.statusCode).toBe(404);
     });
   }
 });
@@ -103,7 +116,7 @@ describe('Test GET route /registration_numbers_for_cars_with_colour', () => {
     expect(response.statusCode).toBe(200);
   });
 
-  test('It should not return slot numbers for cars with colour', async () => {
+  test('It should not return  registration numbers for cars with incorrect colour [error case]', async () => {
     const response = await request(server).get(
       '/registration_numbers_for_cars_with_colour?color=Red'
     );

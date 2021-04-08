@@ -15,7 +15,7 @@ const createParkingSlot = (req, res) => {
 const parkCar = async (req, res) => {
   const slotExists = Slots.indexOf(1);
   if (slotExists == -1) {
-    res.status(404).send(`Sorry, parking lot is full `);
+    res.status(404).send(`Sorry, parking lot is full`);
   } else {
     const carnumber = req.query.carnumber;
     const color = req.query.color;
