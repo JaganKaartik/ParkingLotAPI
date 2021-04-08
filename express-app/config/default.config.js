@@ -7,6 +7,4 @@ const MONGO_DB_URL =
 
 const PORT = process.env.NODE_ENV === 'test' ? PORT_TEST : PORT_MAIN;
 
-console.log(process.env);
-
 module.exports = { PORT, MONGO_DB_URL };
