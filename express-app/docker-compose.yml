@@ -4,6 +4,10 @@ services:
     build: .
     ports:
       - '7000:7000'
+    # enviornment:
+    #   - PORT=7000
+    #   - MONGO_URL='mongodb://mongo:27017/park_system'
+    #   - MONGO_URL_TEST='mongodb://mongo:27017/test'
     networks:
       - parking-lot
     depends_on:
