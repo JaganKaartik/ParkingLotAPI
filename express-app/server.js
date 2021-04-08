@@ -9,6 +9,4 @@ connectDB();
 const port = PORT || 6000;
 app.use(Middleware);
 
-module.exports = app.listen(port, () => {
-  console.log('Server Started Successfully!');
-});
+module.exports = app;

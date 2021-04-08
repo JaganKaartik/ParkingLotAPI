@@ -20,8 +20,10 @@ beforeAll(async () => {
   });
 });
 
-afterAll(async () => {
+afterAll(async (done) => {
   mongoose.disconnect();
+  mongoose.connection.close();
+  done();
 });
 
 describe('Test GET route /create_parking_lot', () => {
