@@ -7,8 +7,9 @@
 
 ### Running app using Docker
 
-1. Run ‘docker-compose up’
-2. Access API at port 7000.
+1. Run `docker-compose up`
+2. Check exec status via `docker ps` if container running proceed.
+3. Access API at port 7000.
 
 ### Running app without Docker
 
