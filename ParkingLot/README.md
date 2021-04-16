@@ -1,11 +1,8 @@
 
 ## Instructions
 
-### Running app using Docker
-
-
 #### *Edit Env Secrets*
-- If using app without Docker, change `localhost` to `mongo` in enviornment variables (Refer .sample.env)
+- If using app without Docker, change `mongo` to `localhost` in enviornment variables (Refer .sample.env)
 - rename `.sample.env` to `.env`
 
 ### Running app using Docker
