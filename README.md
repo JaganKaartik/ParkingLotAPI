@@ -19,13 +19,15 @@ Experimented with,
 
 ### Running app using Docker
 
-1. Run `docker-compose up`
-2. Check exec status via `docker ps` if container running proceed.
-3. Access API at port 7000.
+1. cd into `ParkingLot`
+2. Run `docker-compose up`
+3. Check exec status via `docker ps` if container running proceed.
+4. Access API at port 7000.
 
 ### Running app without Docker
 
-1. Run `npm install`
-2. Run `npm test` - to test app
-3. Run `npm run start` to start app and `npm run start:dev` to start in development mode (live-reloading)
-4. Access API at port 7000. 
+1. cd into `ParkingLot`
+2. Run `npm install`
+3. Run `npm test` - to test app
+4. Run `npm run start` to start app and `npm run start:dev` to start in development mode (live-reloading)
+5. Access API at port 7000. 
