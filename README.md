@@ -1,4 +1,4 @@
-## RocketLot: Parking Lot API 🏎️  - A TDD build using Node/Express.js JEST/Supertest 🚀 
+## Parking Lot Test API 
 
 A parking lot API, built on Node/Express.js to understand Test Driven Development (TDD) in Node/Express.js based Apps. 
 
@@ -8,7 +8,7 @@ Experimented with,
 
 (*Repo only contains JEST tests)
 
-## Before running refer 🔽
+*Note
 [Issue: Parking Data Persistancy](https://github.com/JaganKaartik/ParkingLot-Node.js-API/issues/2)
 
 ## Instructions
