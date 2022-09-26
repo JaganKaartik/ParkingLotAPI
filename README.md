@@ -6,11 +6,6 @@ Experimented with,
 - Chai and Mocha
 - JEST and Supertest 
 
-(*Repo only contains JEST tests)
-
-*Note
-[Issue: Parking Data Persistancy](https://github.com/JaganKaartik/ParkingLot-Node.js-API/issues/2)
-
 ## Instructions
 
 #### *Edit Env Secrets*
